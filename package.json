@@ -1,0 +1,21 @@
+{
+  "name": "@lazybaer/tyk-dashboard-api",
+  "version": "0.0.1",
+  "description": "tyk dashboard api wrapper module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lazybaer",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-topcoder": "^2.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-react": "^7.1.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
