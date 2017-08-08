@@ -15,7 +15,7 @@ const TYK_API_V = 'v2';
 function callOut(reqObj, cb) {
   reqObj.resolveWithFullResponse = true;
   reqObj.simple = false;
-  console.log(reqObj);
+  // console.log(reqObj);
   const p = requestPromise(reqObj);
   p.then((resp) => {
     // console.log(resp);

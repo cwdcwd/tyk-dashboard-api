@@ -12,9 +12,10 @@ const config = require('./test_config');
 
 const HTTP_SUCCESS = 200;
 const HTTP_NOAUTH = 401;
+const MOCHA_TIMEOUT = 15000;
 
 describe('tyk key requests negative', function () {
-  this.timeout(15000);
+  this.timeout(MOCHA_TIMEOUT);
 
   const tyk = new TykDashboardAPI();
 
@@ -29,7 +30,7 @@ describe('tyk key requests negative', function () {
 });
 
 describe('tyk key requests positive', function () {
-  this.timeout(15000);
+  this.timeout(MOCHA_TIMEOUT);
 
   const tyk = new TykDashboardAPI({authorization: config.APIKEY});
   it('fetch key requests', (done) => {
