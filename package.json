@@ -1,5 +1,5 @@
 {
-  "name": "@lazybaer/tyk-dashboard-api",
+  "name": "tyk-dashboard-api",
   "version": "0.0.1",
   "description": "tyk dashboard api wrapper module",
   "main": "index.js",
