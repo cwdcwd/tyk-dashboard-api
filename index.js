@@ -2,9 +2,10 @@
 
 const _ = require('lodash');
 const requestPromise = require('request-promise');
+const Developers = require('./lib/developers');
+const KeyRequests = require('./lib/keyRequests');
 
 const HTTP_SUCCESS = 200;
-const TYK_API_V = 'v2';
 
 /**
  * callOut - fire request over
@@ -44,82 +45,10 @@ function TykDashboardAPI(tykConfig) {
 
   self.tykConfig.baseURL = _.get(tykConfig, 'baseURL', 'https://admin.cloud.tyk.io');
   self.tykConfig.authorization = _.get(tykConfig, 'authorization', '');
+  self.developers = new Developers(self);
+  self.keyRequests = new KeyRequests(self);
 }
 
-TykDashboardAPI.prototype.getKeyRequests = function getKeyRequests(iId, cb) {
-  const self = this;
-
-  if (_.isFunction(iId)) {
-    cb = iId;
-    iId = '';
-  }
-
-  const reqObj = {
-    url: `${self.tykConfig.baseURL}/api/portal/requests/${iId}`,
-    headers: {Authorization: self.tykConfig.authorization}
-  };
-
-  callOut(reqObj, cb);
-};
-
-TykDashboardAPI.prototype.approveKeyRequest = function approveKeyRequest(iId, cb) {
-  const self = this;
-
-  if (iId) {
-    const reqObj = {
-      url: `${self.tykConfig.baseURL}/api/portal/requests/approve/${iId}`,
-      headers: {Authorization: self.tykConfig.authorization},
-      method: 'PUT'
-    };
-
-    callOut(reqObj, cb);
-  } else {
-    throw new Error('id value required');
-  }
-};
-
-TykDashboardAPI.prototype.createKeyRequest = function createKeyRequest(planId, userId, fields, cb) {
-  const self = this;
-
-  if (planId && userId) {
-    if (_.isFunction(fields)) {
-      cb = fields;
-      fields = {};
-    }
-
-    const reqObj = {
-      url: `${self.tykConfig.baseURL}/api/portal/requests/`,
-      headers: {Authorization: self.tykConfig.authorization},
-      method: 'POST',
-      body: JSON.stringify({
-        by_user: userId,
-        date_created: (new Date()).toISOString(),
-        for_plan: planId,
-        version: TYK_API_V,
-        fields
-      })
-    };
-
-    callOut(reqObj, cb);
-  } else {
-    throw new Error('planId and userId values required');
-  }
-};
-
-TykDashboardAPI.prototype.deleteKeyRequest = function deleteKeyRequest(iId, cb) {
-  const self = this;
-
-  if (iId) {
-    const reqObj = {
-      url: `${self.tykConfig.baseURL}/api/portal/requests/${iId}`,
-      headers: {Authorization: self.tykConfig.authorization},
-      method: 'DELETE'
-    };
-
-    callOut(reqObj, cb);
-  } else {
-    throw new Error('id value required');
-  }
-};
+TykDashboardAPI.prototype.callOut = callOut;
 
 module.exports = TykDashboardAPI;
