@@ -43,7 +43,7 @@ describe('tyk key requests positive', function () {
   });
 
   it('create, approve, & delete key request', (done) => {
-    tyk.keyRequests.create(config.PLANID, config.USERID, (err, res) => {
+    tyk.keyRequests.create(config.PLAN_ID, config.USER_ID, (err, res) => {
       expect(err).to.not.exist;
       expect(res.statusCode).to.equal(HTTP_SUCCESS);
       expect(res).to.exist;
