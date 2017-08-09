@@ -23,8 +23,6 @@ describe('tyk developers negative', function () {
       expect(err).to.exist;
       expect(err.statusCode).to.equal(HTTP_NOAUTH);
       expect(res).to.not.exist;
-      console.log(err);
-      console.log(res);
       done();
     });
   });
