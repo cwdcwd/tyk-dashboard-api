@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const requestPromise = require('request-promise');
+const Developers = require('./lib/developer');
 
 const HTTP_SUCCESS = 200;
 const TYK_API_V = 'v2';
@@ -44,7 +45,10 @@ function TykDashboardAPI(tykConfig) {
 
   self.tykConfig.baseURL = _.get(tykConfig, 'baseURL', 'https://admin.cloud.tyk.io');
   self.tykConfig.authorization = _.get(tykConfig, 'authorization', '');
+  self.developers = new Developers(self, tykConfig);
 }
+
+TykDashboardAPI.prototype.callOut = callOut;
 
 TykDashboardAPI.prototype.getKeyRequests = function getKeyRequests(iId, cb) {
   const self = this;
